@@ -11,7 +11,7 @@ instance.interceptors.response.use( (response) => {
   console.log(response.status)
    return response;
 }, (error) => {
-  console.log(error.response.status)
+  console.log(error.response)
    switch (error.response.status) {
         case 401:
              return error;

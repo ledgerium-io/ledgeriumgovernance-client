@@ -60,8 +60,6 @@ export default class extends Component {
             validators.push(nodes[i])
           }
         }
-        console.log(blockProducers)
-        console.log(validators)
         this.setState({
           consortiumId,
           nodes,
@@ -107,6 +105,54 @@ export default class extends Component {
 
   }
 
+  startVote = (votee, proposal) => {
+    this.getChallenge()
+      .then(challenge => {
+        this.signChallenge(challenge)
+          .then(signature => {
+            const signee = this.state.localWeb3.eth.accounts.recover(challenge, signature)
+            if(signee.toLowerCase() === this.state.publicKey.toLowerCase()) {
+              API.post('http://localhost:4002/api/istanbul-propose', {
+                challenge,
+                signature,
+                votee,
+                proposal,
+              })
+              .then(console.log)
+              .catch(console.log)
+            }
+          })
+          .catch(console.log)
+      })
+      .catch(console.log)
+  }
+
+  getChallenge = () => {
+    return new Promise((resolve, reject) => {
+      if(!this.state.connected) reejct('not connected')
+      API.post('http://localhost:4002/api/start-propose', {
+        address: this.state.publicKey
+      })
+      .then(response => {
+        if(response.data.success) {
+          resolve(response.data.data.challenge)
+        } else {
+          reject(resposne.data.data.message)
+        }
+      })
+      .catch(reject)
+    })
+
+  }
+
+  signChallenge = (challenge) => {
+    return new Promise((resolve, reject) => {
+      this.state.localWeb3.eth.personal.sign(challenge, this.state.publicKey, '')
+        .then(resolve)
+        .catch(reject)
+    })
+  }
+
   async connectToWallet() {
     if(window.ledgerium) {
       const localWeb3 = new Web3(window.ledgerium)
@@ -131,6 +177,7 @@ export default class extends Component {
     return (
 
       <Fragment>
+      <Button onClick={this.getChallenge}> Get Challenge </Button>
       <ReactTooltip />
         <div className="d-flex justify-content-between">
           <h3>LEDGERIUM GOVERNANCE UI</h3>
@@ -148,7 +195,7 @@ export default class extends Component {
           </Card>
         : null}
         {this.state.ballots.map((ballot, i) => {
-          return(<Card>
+          return(<Card key={`ballot${i}`}>
             <CardBody>
               <div className="d-flex justify-content-between">
                 <div>
@@ -223,14 +270,14 @@ export default class extends Component {
           <h3>Block Producers <small>({this.state.blockProducers.length})</small></h3>
           {this.state.blockProducers.map((node, i) => {
             return(
-              <div>
+              <div key={`blockProducers${i}`}>
                 <br/>
                 <Card>
                   <CardBody>
                     <div className="d-flex justify-content-between">
                       <div> <small>#{i+1}</small> {node.publicKey} <br/>
                       {node.name}</div>
-                      <div> <Button size="xs"> Vote out</Button></div>
+                      <div> <Button onClick={()=>{this.startVote(node.publicKey, false)}}size="xs"> Vote out</Button></div>
                     </div>
                   </CardBody>
                 </Card>
@@ -244,7 +291,7 @@ export default class extends Component {
 
           {this.state.validators.map((node, i) => {
             return(
-              <div>
+              <div key={`validators${i}`}>
                 <br/>
                 <Card>
                   <CardBody>
