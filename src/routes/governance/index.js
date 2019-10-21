@@ -217,11 +217,11 @@ export default class extends Component {
               <div className="d-flex justify-content-between">
                 <div>
                   <small className="text-muted"> Proposer</small> <br/>
-                  0x12312321321dc12d1d12d1dx12xEe7
+                  0x
                 </div>
                 <div>
-                  <small className="text-muted"> Add </small> <br/>
-                  0xD12idh12idh12idhdDH@1d121ds12FeD
+                  <small className="text-muted"> Add/Remove? </small> <br/>
+                  0x
                 </div>
                 <div>
                   <small className="text-muted"> Ballot Time </small> <br/>
