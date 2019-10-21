@@ -1,8 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { baseURL } from 'Constants/defaultValues';
 import IntlMessages from "Util/IntlMessages";
-import { Row, Card, CardBody,CardHeader, Progress, CardTitle, Button} from "reactstrap";
+import {Alert, Row, Card, CardBody,CardHeader, Progress, CardTitle, Button} from "reactstrap";
 import moment from 'moment'
+import { css } from '@emotion/core';
+import BounceLoader from 'react-spinners/BounceLoader';
+const override = css`
+    display: inline-block;
+    border-color: red;
+`;
 moment.updateLocale('en', {
     relativeTime : {
         future: "in %s",
@@ -25,7 +31,7 @@ import { Colxx, Separator } from "Components/CustomBootstrap";
 import { NavLink } from "react-router-dom";
 import Web3 from 'web3';
 import axios from 'axios'
-import API from 'Components/API'
+
 import ReactTooltip from 'react-tooltip'
 export default class extends Component {
 
@@ -39,16 +45,17 @@ export default class extends Component {
       nodes: [],
       blockProducers: [],
       validators: [],
-      ballots: [1],
+      ballots: [],
       ballotCount: 0,
       nodeCount: 0,
-      snapshot: {}
-
+      snapshot: {},
+      error: '',
+      message: ''
     }
   }
 
   componentWillMount() {
-    API.get('/api/state')
+    axios.get(`${baseURL}/api/state`)
       .then(response => {
         const {consortiumId, nodes, nodeCount, snapshot} = response.data.data
         let validators = []
@@ -78,63 +85,77 @@ export default class extends Component {
     this.connectToWallet()
   }
 
-  startVote(address, decision) {
-
-    axios.post('http://localhost:4002', {
-        vote: address,
-        proposal: decision,
-        sender: this.publicKey
-    })
-    .then(response => {
-      this.state.localWeb3.eth.personal.sign(data.token, this.publicKey)
-        .then(signature => {
-          console.log(signature)
-        })
-    })
-    .catch(error => {
-      this.state.localWeb3.eth.personal.sign('token', this.state.publicKey, '')
-        .then(signature => {
-          console.log(signature)
-          console.log(this.state.localWeb3.eth.accounts.recover('token', signature))
-        })
-        .catch(error => {
-          console.log(error)
-          console.log(this.localWeb3)
-        })
-    })
-
-  }
-
   startVote = (votee, proposal) => {
+    this.setState({
+      error: "",
+      message: ""
+    })
     this.getChallenge()
       .then(challenge => {
         this.signChallenge(challenge)
           .then(signature => {
             const signee = this.state.localWeb3.eth.accounts.recover(challenge, signature)
             if(signee.toLowerCase() === this.state.publicKey.toLowerCase()) {
-              API.post('http://localhost:4002/api/istanbul-propose', {
+              axios.post(`${baseURL}/api/istanbul-propose`, {
                 challenge,
                 signature,
                 votee,
                 proposal,
               })
-              .then(console.log)
-              .catch(console.log)
+              .then(response => {
+                this.setState({
+                  error: "",
+                  message: "Your vote has been proposed"
+                })
+              })
+              .catch(error => {
+                try {
+                  this.setState({
+                    error: error.response.data.message,
+                    message: ''
+                  })
+                } catch (bugger) {
+                  console.log(error)
+                  console.log(bugger)
+                }
+              })
             }
           })
           .catch(console.log)
       })
-      .catch(console.log)
+      .catch(error => {
+        try {
+          this.setState({
+            error: error.response.data.message
+          })
+        } catch (bugger) {
+          console.log(error)
+          console.log(bugger)
+        }
+      })
   }
 
   getChallenge = () => {
     return new Promise((resolve, reject) => {
       if(!this.state.connected) reejct('not connected')
-      API.post('http://localhost:4002/api/start-propose', {
+      axios.post(`${baseURL}/api/start-propose`, {
         address: this.state.publicKey
       })
       .then(response => {
         if(response.data.success) {
+          this.setState({
+            error: '',
+            message: <span>
+                <BounceLoader
+                css={override}
+                color={'#123abc'}
+                sizeUnit={"px"}
+                size={12}
+                loading={true}
+              /> { " "}
+              Recieved challenge, please sign the request
+            </span>
+          })
           resolve(response.data.data.challenge)
         } else {
           reject(resposne.data.data.message)
@@ -169,15 +190,9 @@ export default class extends Component {
     }
   }
 
-
-
-
   render() {
-
     return (
-
       <Fragment>
-      <Button onClick={this.getChallenge}> Get Challenge </Button>
       <ReactTooltip />
         <div className="d-flex justify-content-between">
           <h3>LEDGERIUM GOVERNANCE UI</h3>
@@ -186,6 +201,9 @@ export default class extends Component {
           </span>
         </div>
         <Separator className="mb-5" />
+
+        {this.state.error !== "" ? <div><Alert color="danger">{this.state.error}</Alert></div> : <br/>}
+        {this.state.message !== "" ? <div><Alert color="success">{this.state.message}</Alert></div> : <br/>}
         <h3> Open Ballots <small>({this.state.ballotCount})</small></h3>
         {this.state.ballots.length == 0 ?
           <Card>
@@ -234,10 +252,8 @@ export default class extends Component {
                     </Colxx>
                   </Row>
                 </Colxx>
-
                 <Colxx>
                   <Row>
-
                     <Colxx>
                       <Row>
                         <Colxx xs="11">
@@ -255,15 +271,12 @@ export default class extends Component {
                     </Colxx>
                   </Row>
                 </Colxx>
-
               </Row>
-
             </CardBody>
           </Card>)
         })}
 
-
-        <br/>
+        <br/><br/>
 
         <Row>
         <Colxx xs="6">
@@ -277,7 +290,7 @@ export default class extends Component {
                     <div className="d-flex justify-content-between">
                       <div> <small>#{i+1}</small> {node.publicKey} <br/>
                       {node.name}</div>
-                      <div> <Button onClick={()=>{this.startVote(node.publicKey, false)}}size="xs"> Vote out</Button></div>
+                      <div> <Button disabled={!this.state.connected || this.state.publicKey.toLowerCase() === node.publicKey.toLowerCase()} onClick={()=>{this.startVote(node.publicKey, false)}}size="xs"> Vote out</Button></div>
                     </div>
                   </CardBody>
                 </Card>
@@ -288,7 +301,6 @@ export default class extends Component {
 
         <Colxx xs="6">
           <h3>Validators <small>({this.state.validators.length})</small></h3>
-
           {this.state.validators.map((node, i) => {
             return(
               <div key={`validators${i}`}>
@@ -299,7 +311,7 @@ export default class extends Component {
                       <div> <small>#{i+1}</small> {node.publicKey} <br/>
                       {node.name}
                       </div>
-                      <div> <Button onClick={()=>{this.startVote(node.publicKey, true)}}size="xs"> Vote in</Button></div>
+                      <div> <Button disabled={!this.state.connected || this.state.publicKey.toLowerCase() === node.publicKey.toLowerCase()} onClick={()=>{this.startVote(node.publicKey, true)}}size="xs"> Vote in</Button></div>
                     </div>
                   </CardBody>
                 </Card>
@@ -309,7 +321,6 @@ export default class extends Component {
         </Colxx>
 
         </Row>
-
       </Fragment>
     );
   }
