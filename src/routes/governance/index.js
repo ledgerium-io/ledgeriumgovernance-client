@@ -148,7 +148,6 @@ export default class extends Component {
             message: <span>
                 <BounceLoader
                 css={override}
-                color={'#123abc'}
                 sizeUnit={"px"}
                 size={12}
                 loading={true}
