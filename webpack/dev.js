@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const baseConfig = require('./base')
 
-const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 
 const HOST = 'localhost'
@@ -25,6 +25,7 @@ module.exports = merge(baseConfig, {
     overlay: { warnings: false, errors: true },
     publicPath: '/',
     quiet: true,
+    disableHostCheck: true,
     watchOptions: {
       poll: false,
       ignored: /node_modules/
@@ -32,30 +33,30 @@ module.exports = merge(baseConfig, {
   },
 
   module: {
-   rules: [
-    {
-      test: /\.html$/,
-      use: [
+    rules: [
+      {
+        test: /\.html$/,
+        use: [
           {
-              loader: "html-loader",
-              options: { minimize: true }
+            loader: "html-loader",
+            options: { minimize: true }
           }
-      ]
-  },
-  {
-      test: /\.css$/,
-      use: [MiniCssExtractPlugin.loader, "css-loader"]
-  },
-  // Scss compiler
-  {
-      test: /\.scss$/,
-      use: [
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
+      },
+      // Scss compiler
+      {
+        test: /\.scss$/,
+        use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
           "sass-loader"
-      ]
-  }
-  
+        ]
+      }
+
     ]
   },
 
@@ -63,6 +64,6 @@ module.exports = merge(baseConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: "assets/css/[name].[hash:4].css"
-  })
+    })
   ]
 })
