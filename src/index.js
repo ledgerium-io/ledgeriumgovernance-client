@@ -8,12 +8,12 @@ color options :
 */
 var color = 'light.blue';
 if (localStorage.getItem('themeColor')) {
-  color = localStorage.getItem('themeColor');
+	color = localStorage.getItem('themeColor');
 }
 
 let render = () => {
-  const css = import('./assets/css/sass/themes/gogo.' + color + '.scss').then(x => {
-    const MainApp = require('./App');
-  });
+	const css = import('./assets/css/sass/themes/gogo.' + color + '.scss').then(x => {
+		const MainApp = require('./App');
+	});
 };
 render();

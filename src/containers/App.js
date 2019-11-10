@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
-import { defaultStartPath} from 'Constants/defaultValues'
+import { defaultStartPath } from 'Constants/defaultValues'
 import { connect } from "react-redux";
 import AppLocale from '../lang';
 import MainRoute from 'Routes';
@@ -10,7 +10,10 @@ import 'Assets/css/vendor/bootstrap.min.css'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import io from 'socket.io-client';
 
-
+import NodeList from "../routes/nodelist"
+import Proposals from "../routes/proposal"
+import ProposalDetail from "../routes/proposal/detail"
+import ProposalCreate from "../routes/proposal/create"
 
 const InitialPath = ({ component: Component, authUser, ...rest }) =>
 	<Route
@@ -37,6 +40,10 @@ class App extends Component {
 
 					<Fragment>
 						<Switch>
+							<Route path={`/node/list`} exact component={NodeList} />
+							<Route path={`/proposal/list`} exact component={Proposals} />
+							<Route path={`/proposal/create`} exact component={ProposalCreate} />
+							<Route path={`/proposal/detail/:slug`} exact component={ProposalDetail} />
 							<InitialPath
 								path={`${match.url}governance`}
 								authUser={user}

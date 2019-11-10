@@ -6,19 +6,19 @@ import Sidebar from 'Containers/Sidebar';
 
 import governance from './governance';
 
-
 import { connect } from 'react-redux';
 
 class MainApp extends Component {
 	render() {
-		const { match, containerClassnames} = this.props;
+		const { match, containerClassnames } = this.props;
 		return (
 			<div id="app-container" className={containerClassnames}>
 				<TopNav history={this.props.history} />
-				<Sidebar/>
+				<Sidebar />
 				<main>
 					<div className="container-fluid">
 						<Switch>
+
 							<Route path={`${match.url}/`} exact component={governance} />
 							<Redirect to="/governance" />
 						</Switch>
@@ -29,8 +29,8 @@ class MainApp extends Component {
 	}
 }
 const mapStateToProps = ({ menu }) => {
-	const { containerClassnames} = menu;
+	const { containerClassnames } = menu;
 	return { containerClassnames };
-  }
+}
 
 export default withRouter(connect(mapStateToProps, {})(MainApp));

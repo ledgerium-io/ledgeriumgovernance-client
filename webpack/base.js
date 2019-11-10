@@ -15,7 +15,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
     index: ['./src/index.js']
-},
+  },
   output: {
     path: resolveApp('dist'),
     filename: 'assets/js/[name].[hash:4].js',
@@ -23,7 +23,7 @@ module.exports = {
     publicPath: publicPath,
     // hotUpdateChunkFilename: 'hot/hot-update.js',
     // hotUpdateMainFilename: 'hot/hot-update.json'
-},
+  },
 
   resolve: {
     alias: {
@@ -35,17 +35,31 @@ module.exports = {
       Constants: path.resolve(__dirname, '../src/constants/'),
       Redux: path.resolve(__dirname, '../src/redux/'),
       Data: path.resolve(__dirname, '../src/data/')
-    }
+    },
+    extensions: ['*', '.js', '.jsx']
   },
   module: {
     rules: [
       {
-          test: /\.(js|jsx)$/,
-          exclude: /node_modules/,
-          use: {
-              loader: "babel-loader"
-          }
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 500,
+              name: 'images/[name]_[hash:7].[ext]',
+            }
+          }
+        ]
+      }
+
       // {
       //   test: /\.m?js$/,
       //   exclude: /(node_modules|bower_components)/,
@@ -62,14 +76,14 @@ module.exports = {
   plugins: [
 
     new CopyWebpackPlugin([
-      {from:'src/assets/img',to:'assets/img'},
-      {from:'src/assets/fonts',to:'assets/fonts'}
-  ]), 
-  
-  new HtmlWebPackPlugin({
+      { from: 'src/assets/img', to: 'assets/img' },
+      { from: 'src/assets/fonts', to: 'assets/fonts' }
+    ]),
+
+    new HtmlWebPackPlugin({
       template: "./public/index.html",
       filename: "./index.html",
       favicon: './public/favicon.ico'
-  }),
+    }),
   ]
 };

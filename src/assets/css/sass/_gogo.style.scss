@@ -70,18 +70,18 @@ Table of Contents
     transform : rotate(24deg);
 }
 
-ul {
-    position: relative;
-    top: 200px; left: 200px; /*for example purposes only*/
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-li {
-    -webkit-transition: all 2s linear;
-    -moz-transition: all 2s linear;
-    transition: all 2s linear;
-}
+// ul {
+//     position: relative;
+//     top: 200px; left: 200px; /*for example purposes only*/
+//     list-style-type: none;
+//     margin: 0;
+//     padding: 0;
+// }
+// li {
+//     -webkit-transition: all 2s linear;
+//     -moz-transition: all 2s linear;
+//     transition: all 2s linear;
+// }
 
 /* 00.Variables and Imports */
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
@@ -4769,7 +4769,7 @@ input:-webkit-autofill {
 }
 
 .page-item {
-  padding: 10px;
+  padding: 8px;
 
   @include respond-below(sm) {
     padding: 3px;
@@ -4779,11 +4779,17 @@ input:-webkit-autofill {
     outline: initial !important;
     box-shadow: initial !important;
     line-height: 1.7;
-    border-radius: 40px !important;
+    border-radius: 4px !important;
     min-width: 38px;
     text-align: center;
     height: 38px;
     padding: 0.55rem 0;
+
+    background: #FFFFFF;
+    /* Grey / grey-5 */
+    border: 1px solid #D9D9D9;
+    box-sizing: border-box;
+    border-radius: 4px;
 
     @include respond-below(xs) {
       min-width: 30px;
@@ -4815,20 +4821,20 @@ input:-webkit-autofill {
       &:hover {
         background: $theme-color-1;
         color: $foreground-color;
-        border: 1px solid $theme-color-1;
+        border: 1px solid #203060;//$theme-color-1;
       }
     }
 
     &:hover {
       background-color: transparent;
-      border-color: lighten($theme-color-1, 10%);
+      border-color: #203060;//lighten($theme-color-1, 10%);
       color: $theme-color-1;
     }
   }
 
   &.active .page-link {
     background: transparent;
-    border: 1px solid $theme-color-1;
+    border: 1px solid #203060;// $theme-color-1;
     color: $theme-color-1;
   }
 
@@ -6543,3 +6549,4 @@ input:-webkit-autofill {
     }
   }
 }
+@import "proposal";

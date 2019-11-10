@@ -6,7 +6,6 @@ import { configureStore } from "Redux/store";
 import ReactDOM from 'react-dom';
 
 import App from "Containers/App";
-
 const MainApp = () => (
   <Provider store={configureStore()}>
     <Router>
@@ -16,7 +15,7 @@ const MainApp = () => (
     </Router>
   </Provider>
 );
-export default  ReactDOM.render(
+export default ReactDOM.render(
   <MainApp />,
   document.getElementById("root")
 );
