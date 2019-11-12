@@ -4,6 +4,9 @@ import axios from "axios";
 import Layout from "../../components/Layout";
 import Pager from "../../components/Pager";
 import voteOutImage from "../../assets/img/vote_out.svg";
+import Web3 from 'web3'
+
+const web3 = new Web3()
 
 export default function NodeList() {
   const [data, setData] = useState({ blockProducers: [], peers: [] });
@@ -54,7 +57,7 @@ export default function NodeList() {
                 <div className="node_card" key={`$nodecard_${index}`}>
                   <div className="node_card__left">
                     <p className="p1">{item.name}</p>
-                    <p>{item.publicKey}</p>
+                    <p>{web3.utils.isAddress(item.publicKey) ? web3.utils.toChecksumAddress(item.publicKey) : item.publicKey}</p>
                   </div>
                   <div className="node_card__right">
                     <button className="vote-out">
@@ -70,7 +73,7 @@ export default function NodeList() {
                 <div className="node_card" key={`$nodecard_${index}`}>
                   <div className="node_card__left">
                     <p className="p1">{item.name}</p>
-                    <p>{item.publicKey}</p>
+                    <p>{web3.utils.isAddress(item.publicKey) ? web3.utils.toChecksumAddress(item.publicKey) : item.publicKey}</p>
                   </div>
                   <div className="node_card__right">
                     <button className="vote-out">
