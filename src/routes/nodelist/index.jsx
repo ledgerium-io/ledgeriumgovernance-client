@@ -4,9 +4,10 @@ import axios from "axios";
 import Layout from "../../components/Layout";
 import Pager from "../../components/Pager";
 import voteOutImage from "../../assets/img/vote_out.svg";
-import Web3 from 'web3'
+import voteInImage from "../../assets/img/vote_in.svg";
+import Web3 from "web3";
 
-const web3 = new Web3()
+const web3 = new Web3();
 
 export default function NodeList() {
   const [data, setData] = useState({ blockProducers: [], peers: [] });
@@ -15,25 +16,23 @@ export default function NodeList() {
   useEffect(() => {
     async function fetchData() {
       const result = await axios("http://localhost:4002/api/state");
-      let blockProducers = []
-      let peers = []
+      let blockProducers = [];
+      let peers = [];
 
-      for(let i = 0; i < result.data.data.nodes.length; i++) {
-        if(result.data.data.nodes[i].role === "MasterNode") {
-          blockProducers.push(result.data.data.nodes[i])
+      for (let i = 0; i < result.data.data.nodes.length; i++) {
+        if (result.data.data.nodes[i].role === "MasterNode") {
+          blockProducers.push(result.data.data.nodes[i]);
         }
-        if(result.data.data.nodes[i].role === "PeerNode") {
-          peers.push(result.data.data.nodes[i])
+        if (result.data.data.nodes[i].role === "PeerNode") {
+          peers.push(result.data.data.nodes[i]);
         }
-
       }
-      console.log(blockProducers)
-      console.log(peers)
-      setData({ blockProducers, peers});
+      console.log(blockProducers);
+      console.log(peers);
+      setData({ blockProducers, peers });
     }
     fetchData();
   }, []);
-
 
   return (
     <Layout tabIndex={1}>
@@ -57,11 +56,15 @@ export default function NodeList() {
                 <div className="node_card" key={`$nodecard_${index}`}>
                   <div className="node_card__left">
                     <p className="p1">{item.name}</p>
-                    <p>{web3.utils.isAddress(item.publicKey) ? web3.utils.toChecksumAddress(item.publicKey) : item.publicKey}</p>
+                    <p>
+                      {web3.utils.isAddress(item.publicKey)
+                        ? web3.utils.toChecksumAddress(item.publicKey)
+                        : item.publicKey}
+                    </p>
                   </div>
                   <div className="node_card__right">
                     <button className="vote-out">
-                      <img src={voteOutImage} alt="vote out" />
+                      <img src={voteOutImage} alt="Vote out" />
                       &nbsp;&nbsp;Vote out
                     </button>
                   </div>
@@ -73,11 +76,15 @@ export default function NodeList() {
                 <div className="node_card" key={`$nodecard_${index}`}>
                   <div className="node_card__left">
                     <p className="p1">{item.name}</p>
-                    <p>{web3.utils.isAddress(item.publicKey) ? web3.utils.toChecksumAddress(item.publicKey) : item.publicKey}</p>
+                    <p>
+                      {web3.utils.isAddress(item.publicKey)
+                        ? web3.utils.toChecksumAddress(item.publicKey)
+                        : item.publicKey}
+                    </p>
                   </div>
                   <div className="node_card__right">
                     <button className="vote-out">
-                      <img src={voteOutImage} alt="vote out" />
+                      <img src={voteInImage} alt="Vote in" />
                       &nbsp;&nbsp;Vote in
                     </button>
                   </div>
