@@ -11,9 +11,9 @@ export default function NodeList() {
   // fetch real data here
   useEffect(() => {
     async function fetchData() {
-      const result = await axios("https://jsonplaceholder.typicode.com/posts/");
-      console.log("result", result);
-      setData({ rows: result.data });
+      // const result = await axios("https://jsonplaceholder.typicode.com/posts/");
+      // console.log("result", result);
+      setData({ rows: [1, 1, 1, 1, 1, 1, 1, 1] });
     }
     fetchData();
   }, []);
@@ -35,25 +35,39 @@ export default function NodeList() {
 
           <div className="divide-line" />
           <div className="nodelist__cards">
-            {data.rows.map((item, index) => (
-              <div className="node_card" key={`$nodecard_${index}`}>
-                <div className="node_card__left">
-                  <p className="p1">flinders.ciredwc22sf32scxzcdvet3234</p>
-                  <p>0xfsdfigtigjf3432igv45uovigk3ig5</p>
+            <div className="nodelist__cards__column">
+              {data.rows.map((item, index) => (
+                <div className="node_card" key={`$nodecard_${index}`}>
+                  <div className="node_card__left">
+                    <p className="p1">flinders.ciredwc22sf32scxzcdvet3234</p>
+                    <p>0xfsdfigtigjf3432igv45uovigk3ig5</p>
+                  </div>
+                  <div className="node_card__right">
+                    <button className="vote-out">
+                      <img src={voteOutImage} alt="vote out" />
+                      &nbsp;&nbsp;Vote out
+                    </button>
+                  </div>
                 </div>
-                <div className="node_card__right">
-                  <button className="vote-out">
-                    <img src={voteOutImage} alt="vote out" />
-                    &nbsp;&nbsp;Vote out
-                  </button>
+              ))}
+            </div>
+            <div className="nodelist__cards__column">
+              {data.rows.map((item, index) => (
+                <div className="node_card" key={`$nodecard_${index}`}>
+                  <div className="node_card__left">
+                    <p className="p1">flinders.ciredwc22sf32scxzcdvet3234</p>
+                    <p>0xfsdfigtigjf3432igv45uovigk3ig5</p>
+                  </div>
+                  <div className="node_card__right">
+                    <button className="vote-out">
+                      <img src={voteOutImage} alt="vote out" />
+                      &nbsp;&nbsp;Vote out
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-
-        <div className="ppager">
-          <Pager />
         </div>
       </div>
     </Layout>

@@ -11,8 +11,8 @@ export default function Proposals() {
   // fetch real data here
   useEffect(() => {
     async function fetchData() {
-      const result = await axios("https://jsonplaceholder.typicode.com/posts/");
-      console.log("result", result);
+      // const result = await axios("https://jsonplaceholder.typicode.com/posts/");
+      // console.log("result", result);
       setData({ rows: mockRows });
     }
     fetchData();
@@ -30,9 +30,6 @@ export default function Proposals() {
           {data.rows.map((row, index) => (
             <ProposalRow {...row} key={`row_${index}`} />
           ))}
-        </div>
-        <div className="ppager">
-          <Pager />
         </div>
       </div>
     </Layout>
