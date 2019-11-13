@@ -315,8 +315,8 @@ export default class extends Component {
                 <Card>
                   <CardBody>
                     <div className="d-flex justify-content-between">
-                      <div> <small>#{i+1}</small> {node.publicKey} <br/>
-                      {node.name}</div>
+                      <div> <small>#{i+1}</small> {node.name} <br/>
+                      {node.publicKey}</div>
                       <div> <Button disabled={!this.state.connected || this.state.publicKey.toLowerCase() === node.publicKey.toLowerCase()} onClick={()=>{this.startVote(node.publicKey, false)}}size="xs"> Vote out</Button></div>
                     </div>
                   </CardBody>
