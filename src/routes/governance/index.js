@@ -233,7 +233,8 @@ export default class extends Component {
         {Object.keys(this.state.votes).map((ballot, i) => {
           console.log(ballot)
           console.log(this.state.votes[ballot])
-          return(<Card key={`ballot${i}`}>
+          return(<div key={`ballot${i}`}>
+            <Card>
             <CardBody>
               <div className="d-flex justify-content-between">
                 <div>
@@ -286,7 +287,7 @@ export default class extends Component {
                       </Row>
                       <Row>
                         <Colxx>
-                          <Progress value={75}/>
+                          <Progress value={100}/>
                         </Colxx>
                       </Row>
                     </Colxx>
@@ -297,7 +298,9 @@ export default class extends Component {
                 </Colxx>
               </Row>
             </CardBody>
-          </Card>)
+          </Card>
+          <br/>
+        </div>)
         })}
 
         <br/><br/>
