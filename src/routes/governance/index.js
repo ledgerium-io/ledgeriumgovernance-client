@@ -47,6 +47,7 @@ export default class extends Component {
       validators: [],
       ballots: [],
       ballotCount: 0,
+      votes: {},
       nodeCount: 0,
       snapshot: {},
       error: '',
@@ -67,11 +68,29 @@ export default class extends Component {
             validators.push(nodes[i])
           }
         }
+        let votes = snapshot.tally
+        let ballotCount = 0
+        for (let i = 0; i<snapshot.votes.length; i++) {
+          const vote = snapshot.votes[i]
+          if (votes[vote.address]) {
+            if (votes[vote.address.votees]) {
+              votes[vote.address].votees.push(vote)
+            } else {
+              votes[vote.address].votees = [vote]
+              ballotCount++
+            }
+          }
+        }
+        console.log(votes)
+
+
         this.setState({
           consortiumId,
           nodes,
           nodeCount,
           validators,
+          ballotCount,
+          votes,
           blockProducers,
           snapshot
         })
@@ -204,29 +223,35 @@ export default class extends Component {
         {this.state.error !== "" ? <div><Alert color="danger">{this.state.error}</Alert></div> : <br/>}
         {this.state.message !== "" ? <div><Alert color="success">{this.state.message}</Alert></div> : <br/>}
         <h3> Open Ballots <small>({this.state.ballotCount})</small></h3>
-        {this.state.ballots.length == 0 ?
+        {this.state.ballotCount.length == 0 ?
           <Card>
             <CardBody>
               There are no open ballots
             </CardBody>
           </Card>
         : null}
-        {this.state.ballots.map((ballot, i) => {
+        {Object.keys(this.state.votes).map((ballot, i) => {
+          console.log(ballot)
+          console.log(this.state.votes[ballot])
           return(<Card key={`ballot${i}`}>
             <CardBody>
               <div className="d-flex justify-content-between">
                 <div>
                   <small className="text-muted"> Proposer</small> <br/>
-                  0x
+                  {  this.state.votes[ballot].votees[0].validator }
                 </div>
                 <div>
                   <small className="text-muted"> Add/Remove? </small> <br/>
-                  0x
+                  {this.state.votes[ballot].authorize ? "ADD" : "REMOVE"}
+                </div>
+                <div>
+                  <small className="text-muted"> Effected Key </small> <br/>
+                  {ballot}
                 </div>
                 <div>
                   <small className="text-muted"> Ballot Time </small> <br/>
-                  Opened Block # <br/>
-                  Closes Block #
+                  Opened Block #{ this.state.votes[ballot].votees[0].block.toLocaleString() } <br/>
+                  Expires Block #{ (this.state.votes[ballot].votees[0].block + 30000).toLocaleString() }
                 </div>
               </div>
 
@@ -235,17 +260,17 @@ export default class extends Component {
                 <Colxx>
                   <Row>
                     <Colxx xs="1">
-                      <Button size="xs"> No </Button>
+                    <Button disabled={!this.state.connected || this.state.publicKey.toLowerCase() === ballot.toLowerCase()} onClick={()=>{this.startVote(ballot, false)}}size="xs"> No </Button>
                     </Colxx>
                     <Colxx>
                       <Row>
                         <Colxx>
-                          <strong> 25% </strong> 2 Votes
+                          <strong> 0% </strong> 0 Votes
                         </Colxx>
                       </Row>
                       <Row>
                         <Colxx xs="11">
-                          <Progress value={25}/>
+                          <Progress value={0}/>
                         </Colxx>
                       </Row>
                     </Colxx>
@@ -256,7 +281,7 @@ export default class extends Component {
                     <Colxx>
                       <Row>
                         <Colxx xs="11">
-                          <strong> 75% </strong> 6 Votes
+                          <strong> 100% </strong> {this.state.votes[ballot].votes} { this.state.votes[ballot].votes === 1 ? " Vote" : "Votes"}
                         </Colxx>
                       </Row>
                       <Row>
@@ -266,7 +291,7 @@ export default class extends Component {
                       </Row>
                     </Colxx>
                     <Colxx xs="1">
-                      <Button size="xs"> Yes </Button>
+                      <Button disabled={!this.state.connected || this.state.publicKey.toLowerCase() === ballot.toLowerCase()} onClick={()=>{this.startVote(ballot, true)}}size="xs"> Yes </Button>
                     </Colxx>
                   </Row>
                 </Colxx>
@@ -307,8 +332,9 @@ export default class extends Component {
                 <Card>
                   <CardBody>
                     <div className="d-flex justify-content-between">
-                      <div> <small>#{i+1}</small> {node.publicKey} <br/>
-                      {node.name}
+                      <div>
+                      <small>#{i+1}</small> {node.name} <br/>
+                      {node.publicKey}
                       </div>
                       <div> <Button disabled={!this.state.connected || this.state.publicKey.toLowerCase() === node.publicKey.toLowerCase()} onClick={()=>{this.startVote(node.publicKey, true)}}size="xs"> Vote in</Button></div>
                     </div>
