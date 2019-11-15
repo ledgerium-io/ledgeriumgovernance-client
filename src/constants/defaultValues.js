@@ -10,4 +10,4 @@ export const localeOptions=[
 export const searchPath = "/app/search"
 export const servicePath = "https://api.coloredstrategies.com"
 
-export const baseURL = 'https://flinders01.ledgerium.io/governance'
+export const baseURL = 'https://flinders01.ledgerium.io/governancesvc'

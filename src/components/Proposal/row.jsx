@@ -43,7 +43,7 @@ export default function ProposalRow({
             backgroundColor: "#3e98c7"
           })}
         />
-        <Link to={`/proposal/detail/${id}`}>
+        <Link to={`/governance/proposal/detail/${id}`}>
           <div className="info">
             <h3>{title}</h3>
             <h2>{timeRemaining}</h2>

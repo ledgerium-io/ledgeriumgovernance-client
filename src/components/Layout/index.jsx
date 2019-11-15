@@ -11,10 +11,10 @@ export default function Layout({ tabIndex, children }) {
 
         <ul className="gov__tabs">
           <li className={`${tabIndex == 0 ? "tab--active" : "tab--inactive"}`}>
-            <Link to="/proposal/list">Proposals</Link>
+            <Link to="/governance/proposals">Proposals</Link>
           </li>
           <li className={`${tabIndex == 1 ? "tab--active" : "tab--inactive"}`}>
-            <Link to="/node/list">Node List</Link>
+            <Link to="/governance/nodes">Node List</Link>
           </li>
         </ul>
       </header>

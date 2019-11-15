@@ -10,10 +10,10 @@ import 'Assets/css/vendor/bootstrap.min.css'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import io from 'socket.io-client';
 
-import NodeList from "../routes/nodelist"
-import Proposals from "../routes/proposal"
-import ProposalDetail from "../routes/proposal/detail"
-import ProposalCreate from "../routes/proposal/create"
+import Proposal from "../routes/proposals"
+import ProposalDetail from "../routes/proposals/detail"
+import ProposalCreate from "../routes/proposals/create"
+import NodeList from "../routes/nodes"
 
 const InitialPath = ({ component: Component, authUser, ...rest }) =>
 	<Route
@@ -40,14 +40,14 @@ class App extends Component {
 
 					<Fragment>
 						<Switch>
-							<Route path={`/node/list`} exact component={NodeList} />
-							<Route path={`/proposal/list`} exact component={Proposals} />
-							<Route path={`/proposal/create`} exact component={ProposalCreate} />
-							<Route path={`/proposal/detail/:slug`} exact component={ProposalDetail} />
+						<Route path={`/governance/legacy`} exact component={MainRoute} />
+							<Route path={`/governance/nodes`} exact component={NodeList} />
+							<Route path={`/governance/proposals`} exact component={Proposal} />
+							<Route path={`/governance/proposal/create`} exact component={ProposalCreate} />
+							<Route path={`/governance/proposal/detail/:slug`} exact component={ProposalDetail} />
 							<InitialPath
 								path={`${match.url}governance`}
-								authUser={user}
-								component={MainRoute}
+								component={Proposal}
 							/>
 							<Redirect to="/error" />
 						</Switch>
