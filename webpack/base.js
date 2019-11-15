@@ -1,6 +1,9 @@
 "use strict";
 const path = require('path');
 const fs = require('fs');
+const Dotenv = require('dotenv-webpack');
+
+
 
 const publicPath = '/';
 const appDirectory = fs.realpathSync(process.cwd());
@@ -11,6 +14,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
 
 module.exports = {
   entry: {
@@ -85,5 +89,6 @@ module.exports = {
       filename: "./index.html",
       favicon: './public/favicon.ico'
     }),
+    new Dotenv()
   ]
 };

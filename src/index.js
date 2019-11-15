@@ -6,6 +6,8 @@ color options :
 	 'light.orange'		'dark.orange'
 	 'light.red'		  'dark.red'
 */
+console.log(process.env.REACT_APP_BASE_URL_API);
+
 var color = 'light.blue';
 if (localStorage.getItem('themeColor')) {
 	color = localStorage.getItem('themeColor');
