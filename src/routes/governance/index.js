@@ -81,8 +81,6 @@ export default class extends Component {
             }
           }
         }
-        console.log(votes)
-
 
         this.setState({
           consortiumId,
@@ -231,8 +229,6 @@ export default class extends Component {
           </Card>
         : null}
         {Object.keys(this.state.votes).map((ballot, i) => {
-          console.log(ballot)
-          console.log(this.state.votes[ballot])
           return(<div key={`ballot${i}`}>
             <Card>
             <CardBody>

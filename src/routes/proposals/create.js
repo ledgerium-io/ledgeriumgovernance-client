@@ -88,8 +88,6 @@ export default class extends Component {
             }
           }
         }
-        console.log(votes)
-
 
         this.setState({
           consortiumId,
