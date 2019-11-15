@@ -1,13 +1,14 @@
 export const defaultMenuType = 'menu-hidden'; // 'menu-default', 'menu-sub-hidden', 'menu-hidden';
 export const defaultStartPath = '/governance';
-export const subHiddenBreakpoint=1440;
+export const subHiddenBreakpoint = 1440;
 export const menuHiddenBreakpoint = 768;
-export const defaultLocale='en';
-export const localeOptions=[
-    {id:'en',name:'English'},
+export const defaultLocale = 'en';
+export const localeOptions = [
+    { id: 'en', name: 'English' },
     // {id:'es',name:'Español'},
 ];
 export const searchPath = "/app/search"
 export const servicePath = "https://api.coloredstrategies.com"
 
-export const baseURL = 'https://flinders01.ledgerium.io/governancesvc'
+export const baseURL = process.env.REACT_APP_BASE_URL_API || 'https://flinders01.ledgerium.io/governancesvc'
+// 'https://flinders01.ledgerium.io/governancesvc'
