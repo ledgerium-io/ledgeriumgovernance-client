@@ -233,6 +233,7 @@ export default class extends Component {
             <div className="divide-line" />
             <div className="nodelist__cards">
               <div className="nodelist__cards__column">
+                {this.state.blockProducers.length === 0 ? "No block producers/validators found" : null}
                 {this.state.blockProducers.map((item, index) => (
                   <div className="node_card" key={`$nodecard_${index}`}>
                     <div className="node_card__left">
@@ -253,6 +254,8 @@ export default class extends Component {
                 ))}
               </div>
               <div className="nodelist__cards__column">
+              {this.state.validators.length === 0 ? "No peers found" : null}
+
                 {this.state.validators.map((item, index) => (
                   <div className="node_card" key={`$nodecard_${index}`}>
                     <div className="node_card__left">

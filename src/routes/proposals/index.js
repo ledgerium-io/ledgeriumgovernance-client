@@ -257,6 +257,8 @@ export default class extends Component {
             </Link>
           </div>
           <div className="props">
+            {this.state.ballots.length === 0 ? "No open ballots found" : null}
+
             {this.state.ballots.map((ballot, index) => (
               <ProposalRow {...ballot} key={`row_${index}`} />
             ))}
