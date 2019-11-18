@@ -21,7 +21,6 @@ import {
 
 import { menuHiddenBreakpoint, searchPath,localeOptions } from "Constants/defaultValues";
 
-import notifications from "Data/topnav.notifications.json";
 import Search from 'Components/Search'
 
 class TopNav extends Component {
