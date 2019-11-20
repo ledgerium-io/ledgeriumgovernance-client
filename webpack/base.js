@@ -12,7 +12,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const dotenv = require('dotenv').config()
+// const dotenv = require('dotenv').config()
 
 module.exports = {
   entry: {
@@ -87,6 +87,8 @@ module.exports = {
       filename: "./index.html",
       favicon: './public/favicon.ico'
     }),
-    new Dotenv()
+    new Dotenv({
+      systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+    })
   ]
 };
