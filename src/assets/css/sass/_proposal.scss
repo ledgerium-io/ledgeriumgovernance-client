@@ -64,6 +64,7 @@ $disable-clr: #adb5cc;
 
 .container--middle {
   padding: 0 64px;
+  min-height: 88.6vh;
   @include respond-below(lg) {
     padding: 0 8px;
   }
