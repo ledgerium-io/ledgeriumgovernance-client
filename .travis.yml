@@ -5,7 +5,7 @@ node_js:
 env:
   - SERVER_IP_ADDRESS=104.210.106.138
   - USER=ledgerappuser
-  - IMAGE_NAME=ledgerappuser/ledgeriumgovernance_client  
+  - IMAGE_NAME=ledgeriumengineering/ledgeriumgovernance_client  
 services:
 - docker
 addons:
@@ -13,36 +13,36 @@ addons:
 before_install:
 #- sudo apt-get update
 #- npm install --unsafe-perm -g keccak
-#- npm install
+- npm install
 - echo $IMAGE_NAME
-- docker pull "$IMAGE_NAME" || true
+#- docker pull "$IMAGE_NAME" || true
 - echo "Testing Docker Hub credentials"
 - BUILDID="latest"
-- VERSION="1.0"
+- VERSION="v1.0"
 - echo $BUILDID
-- docker build -t $IMAGE_NAME:$BUILDID .
 - docker login -u=$DOCUSENAME -p=$DOCPASSWRD
+- docker build . -t $IMAGE_NAME:$BUILDID
+- docker build . -t $IMAGE_NAME:$VERSION
 - echo "Docker Hub credentials are working"
-- docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
-- docker tag "$IMAGE_NAME" "${IMAGE_NAME}:v${VERSION}"
+#- docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
+#- docker tag "$IMAGE_NAME" "${IMAGE_NAME}:v${VERSION}"
 script:
 - docker ps -a
-after_success:
-#- docker build . -t $DOCUSENAME/ledgeriumgovernance_client:$BUILDID
-- docker push $IMAGE_NAME:$BUILDID && docker push $IMAGE_NAME:latest
-before_deploy:
-- openssl aes-256-cbc -K $encrypted_887211266452_key -iv $encrypted_887211266452_iv
-  -in deploy_rsa.enc -out ./deploy_rsa -d
-- eval "$(ssh-agent -s)"
-- chmod 600 ./deploy_rsa
-- echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- ssh-add ./deploy_rsa
-- rsync -r --delete-after --quiet ./deploy_script.sh ledgerappuser@104.210.106.138:~/ledgerium/ledgeriumtools/output
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: ssh -i ./deploy_rsa ledgerappuser@104.210.106.138 "cd ~/ledgerium/ledgeriumtools/output
-    && bash ./deploy_script.sh $BUILDID $DOCUSENAME"
+#after_success:
+#- docker push $IMAGE_NAME:$BUILDID && docker push $IMAGE_NAME:VERSION
+#before_deploy:
+#- openssl aes-256-cbc -K $encrypted_887211266452_key -iv $encrypted_887211266452_iv
+#  -in deploy_rsa.enc -out ./deploy_rsa -d
+#- eval "$(ssh-agent -s)"
+#- chmod 600 ./deploy_rsa
+#- echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+#- ssh-add ./deploy_rsa
+#- rsync -r --delete-after --quiet ./deploy_script.sh ledgerappuser@104.210.106.138:~/ledgerium/ledgeriumtools/output
+#deploy:
+#  provider: script
+#  skip_cleanup: true
+#  script: ssh -i ./deploy_rsa ledgerappuser@104.210.106.138 "cd ~/ledgerium/ledgeriumtools/output
+#    && bash ./deploy_script.sh $BUILDID $DOCUSENAME"
   on:
     branch: master
 env:
