@@ -13,6 +13,7 @@ RUN chmod 755 -R /usr/src/app/node_modules/.bin/webpack
 RUN npm run build
 
 FROM nginx:1.13.12-alpine
+RUN apk --no-cache add curl  
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=react-build /usr/src/app/dist /usr/share/nginx/html/
 EXPOSE 80
