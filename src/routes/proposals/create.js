@@ -161,7 +161,7 @@ export default class extends Component {
 
   getChallenge = () => {
     return new Promise((resolve, reject) => {
-      if (!this.state.connected) reejct('not connected')
+      if (!this.state.connected) reject('Wallet is not connected')
       axios.post(`${baseURL}/api/start-propose`, {
         address: this.state.publicKey
       })
