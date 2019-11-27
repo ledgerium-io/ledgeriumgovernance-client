@@ -12,3 +12,4 @@ export const servicePath = "https://api.coloredstrategies.com"
 
 export const baseURL = `${document.location.origin}/governancesvc`
 // 'https://flinders01.ledgerium.io/governancesvc'
+    
