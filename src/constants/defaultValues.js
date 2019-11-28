@@ -9,6 +9,7 @@ export const localeOptions = [
 ];
 export const searchPath = "/app/search"
 export const servicePath = "https://api.coloredstrategies.com"
-console.log(process.env.REACT_APP_BASE_URL_API)
-export const baseURL = process.env.REACT_APP_BASE_URL_API || 'https://flinders01.ledgerium.io/governancesvc'
+
+export const baseURL = `${document.location.origin}/governancesvc`
 // 'https://flinders01.ledgerium.io/governancesvc'
+    

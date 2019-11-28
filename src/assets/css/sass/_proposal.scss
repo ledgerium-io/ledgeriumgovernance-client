@@ -95,7 +95,8 @@ proposal page
       align-items: center;
       text-align: center;
       color: #203060;
-      &:hover {
+      cursor: pointer;
+      &:hover:enabled {
         background-color: #b7bdd0;
         color: darken(#203060, 8%);
       }
@@ -221,6 +222,7 @@ proposal page
     font-size: 16px;
     line-height: 26px;
     color: #737989;
+    cursor: pointer;
     &:hover {
       color: $dark-blue;
     }
@@ -284,6 +286,7 @@ proposal create form
 .p_btn,
 .p_btn--primary {
   width: 160px;
+  cursor: pointer;
   @include respond-below(sm) {
     width: 140px;
   }
@@ -295,7 +298,8 @@ proposal create form
   background: #fff;
   border: 1px solid #d9d9d9;
   color: $dark-blue;
-  &:hover {
+  cursor: pointer;
+  &:hover:enabled {
     background-color: #b7bdd0;
     color: darken(#203060, 8%);
     border: 1px solid #d9d9d9;
@@ -305,7 +309,8 @@ proposal create form
 .p_btn--primary {
   background: $dark-blue;
   border: none;
-  &:hover {
+  cursor: pointer;
+  &:hover:enabled {
     background-color: #b7bdd0;
     color: darken(#203060, 8%);
   }
@@ -492,8 +497,7 @@ node list..
         font-size: 14px;
         line-height: 22px;
         text-align: center;
-        &:hover {
-        }
+        cursor: pointer;
       }
       & .vote__btn--no {
         background: #eb5757;
@@ -523,5 +527,13 @@ node list..
     color: #565c6c;
     margin: 35px 0 100px 0;
     text-align: left;
+  }
+}
+
+button {
+  &:disabled {
+    color: #fff;
+    background-color: #9ca7b0 !important;
+    border: #9ca7b0;
   }
 }
