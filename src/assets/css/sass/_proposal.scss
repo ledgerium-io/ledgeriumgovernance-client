@@ -396,11 +396,13 @@ node list..
         & p {
           text-align: left;
           margin-bottom: 0px;
+          word-break: break-word;
         }
         & .p1 {
           font-weight: 600;
           font-size: 14px;
           line-height: 22px;
+          word-break: break-word;
         }
       }
 
