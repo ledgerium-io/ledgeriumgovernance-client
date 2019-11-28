@@ -412,7 +412,7 @@ node list..
       }
 
       &__right {
-        margin: 0;
+        margin-left: 8px;
         @include respond-below(sm) {
           margin-top: 18px;
         }
