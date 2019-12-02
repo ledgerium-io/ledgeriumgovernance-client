@@ -319,7 +319,7 @@ export default class extends Component {
               </div>
 
               <div className="props_detail__vote">
-                <div className="divide-line" />
+                <div className="divide-line desktop" />
                 <div className="props_detail__vote__info">
                   <div className="vote_no">
                     <div className="text-center">0%</div>
@@ -329,7 +329,7 @@ export default class extends Component {
                   </div>
 
                   <div className="vote_yes">
-                    <div className="text-center">100%</div>
+                    <div className="text-center vote_text">100%</div>
                     <Progress value="100" />
                     <p className="votes">{ballot.votes} Votes</p>
                     <button
@@ -349,9 +349,9 @@ export default class extends Component {
                 </div>
               </div>
               <h2 className="props_detail__desc-title">Proposal Description</h2>
-              {/* <div className="divide-line" /> */}
+              <div className="divide-line" />
 
-              <p>
+              <p class="props_detail__parag">
                 A block producer with the public key of{" "}
                 {ballot.votees[0].validator} has initiated a vote to bring in{" "}
                 {ballot.votees[0].address} into the consensus. There are
