@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { baseURL } from 'Constants/defaultValues';
 import IntlMessages from "Util/IntlMessages";
-import {Alert, Row, Card, CardBody,CardHeader, Progress, CardTitle, Button} from "reactstrap";
+import { Alert, Row, Card, CardBody, CardHeader, Progress, CardTitle, Button } from "reactstrap";
 import moment from 'moment'
 import ProposalRow from "../../components/Proposal/row";
 
@@ -17,22 +17,22 @@ const override = css`
 import { Link } from "react-router-dom";
 
 moment.updateLocale('en', {
-    relativeTime : {
-        future: "in %s",
-        past:   "%s ago",
-        s  : '%d seconds',
-        ss : '%d seconds',
-        m:  "a minute",
-        mm: "%d minutes",
-        h:  "an hour",
-        hh: "%d hours",
-        d:  "a day",
-        dd: "%d days",
-        M:  "a month",
-        MM: "%d months",
-        y:  "a year",
-        yy: "%d years"
-    }
+  relativeTime: {
+    future: "in %s",
+    past: "%s ago",
+    s: '%d seconds',
+    ss: '%d seconds',
+    m: "a minute",
+    mm: "%d minutes",
+    h: "an hour",
+    hh: "%d hours",
+    d: "a day",
+    dd: "%d days",
+    M: "a month",
+    MM: "%d months",
+    y: "a year",
+    yy: "%d years"
+  }
 });
 import { Colxx, Separator } from "Components/CustomBootstrap";
 import { NavLink } from "react-router-dom";
@@ -65,7 +65,7 @@ export default class extends Component {
   }
 
   progressColor(value) {
-    if(value < 34) {
+    if (value < 34) {
       return "#dc3545";
     } else if (value < 50) {
       return "#ffc107";
@@ -79,11 +79,11 @@ export default class extends Component {
   componentWillMount() {
     axios.get(`${baseURL}/api/state`)
       .then(response => {
-        const {consortiumId, nodes, nodeCount, snapshot} = response.data.data
+        const { consortiumId, nodes, nodeCount, snapshot } = response.data.data
         let validators = []
         let blockProducers = []
-        for(let i=0; i<nodes.length; i++) {
-          if(nodes[i].role === "MasterNode") {
+        for (let i = 0; i < nodes.length; i++) {
+          if (nodes[i].role === "MasterNode") {
             blockProducers.push(nodes[i])
           } else {
             validators.push(nodes[i])
@@ -91,7 +91,7 @@ export default class extends Component {
         }
         let votes = snapshot.tally
         let ballotCount = 0
-        for (let i = 0; i<snapshot.votes.length; i++) {
+        for (let i = 0; i < snapshot.votes.length; i++) {
           const vote = snapshot.votes[i]
           if (votes[vote.address]) {
             if (votes[vote.address.votees]) {
@@ -108,7 +108,7 @@ export default class extends Component {
         let ballots = []
 
         Object.keys(votes).map((votee, index) => {
-          votes[votee].ratio = parseInt((votes[votee].votes / blockProducers.length)*100)
+          votes[votee].ratio = parseInt((votes[votee].votes / blockProducers.length) * 100)
           votes[votee].color = this.progressColor(votes[votee].ratio)
           ballots.push({
             id: votee,
@@ -151,30 +151,30 @@ export default class extends Component {
         this.signChallenge(challenge)
           .then(signature => {
             const signee = this.state.localWeb3.eth.accounts.recover(challenge, signature)
-            if(signee.toLowerCase() === this.state.publicKey.toLowerCase()) {
+            if (signee.toLowerCase() === this.state.publicKey.toLowerCase()) {
               axios.post(`${baseURL}/api/istanbul-propose`, {
                 challenge,
                 signature,
                 votee,
                 proposal,
               })
-              .then(response => {
-                this.setState({
-                  error: "",
-                  message: "Your vote has been proposed"
-                })
-              })
-              .catch(error => {
-                try {
+                .then(response => {
                   this.setState({
-                    error: error.response.data.message,
-                    message: ''
+                    error: "",
+                    message: "Your vote has been proposed"
                   })
-                } catch (bugger) {
-                  console.log(error)
-                  console.log(bugger)
-                }
-              })
+                })
+                .catch(error => {
+                  try {
+                    this.setState({
+                      error: error.response.data.message,
+                      message: ''
+                    })
+                  } catch (bugger) {
+                    console.log(error)
+                    console.log(bugger)
+                  }
+                })
             }
           })
           .catch(console.log)
@@ -193,30 +193,30 @@ export default class extends Component {
 
   getChallenge = () => {
     return new Promise((resolve, reject) => {
-      if(!this.state.connected) reejct('not connected')
+      if (!this.state.connected) reejct('not connected')
       axios.post(`${baseURL}/api/start-propose`, {
         address: this.state.publicKey
       })
-      .then(response => {
-        if(response.data.success) {
-          this.setState({
-            error: '',
-            message: <span>
+        .then(response => {
+          if (response.data.success) {
+            this.setState({
+              error: '',
+              message: <span>
                 <BounceLoader
-                css={override}
-                sizeUnit={"px"}
-                size={12}
-                loading={true}
-              /> { " "}
-              Recieved challenge, please sign the request
+                  css={override}
+                  sizeUnit={"px"}
+                  size={12}
+                  loading={true}
+                /> {" "}
+                Recieved challenge, please sign the request
             </span>
-          })
-          resolve(response.data.data.challenge)
-        } else {
-          reject(resposne.data.data.message)
-        }
-      })
-      .catch(reject)
+            })
+            resolve(response.data.data.challenge)
+          } else {
+            reject(resposne.data.data.message)
+          }
+        })
+        .catch(reject)
     })
 
   }
@@ -230,7 +230,7 @@ export default class extends Component {
   }
 
   async connectToWallet() {
-    if(window.ledgerium) {
+    if (window.ledgerium) {
       const localWeb3 = new Web3(window.ledgerium)
       try {
         await window.ledgerium.enable()
@@ -249,8 +249,8 @@ export default class extends Component {
     return (
       <Layout tabIndex={0}>
         <div className="container container--middle">
-        {this.state.error !== "" ? <div><Alert color="danger">{this.state.error}</Alert></div> : <br/>}
-        {this.state.message !== "" ? <div><Alert color="success">{this.state.message}</Alert></div> : <br/>}
+          {this.state.error !== "" ? <div><Alert color="danger">{this.state.error}</Alert></div> : ""}
+          {this.state.message !== "" ? <div><Alert color="success">{this.state.message}</Alert></div> : ""}
           <div className="props__create">
             <Link to="/governance/proposal/create">
               <button>Create Proposal</button>

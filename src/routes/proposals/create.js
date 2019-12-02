@@ -225,8 +225,8 @@ export default class extends Component {
         <div className="container">
           <Goback />
           <div className="divide-line" />
-          {this.state.error !== "" ? <div><Alert color="danger">{this.state.error}</Alert></div> : <br />}
-          {this.state.message !== "" ? <div><Alert color="success">{this.state.message}</Alert></div> : <br />}
+          {this.state.error !== "" ? <div><Alert color="danger">{this.state.error}</Alert></div> : ""}
+          {this.state.message !== "" ? <div><Alert color="success">{this.state.message}</Alert></div> : ""}
           <div className="creat_propoal">
             <Form className="creat_propoal__form">
               <h2>Create a Proposal</h2>

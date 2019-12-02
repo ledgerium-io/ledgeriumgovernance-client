@@ -10,10 +10,18 @@ $disable-clr: #adb5cc;
   background-color: $bg-clr;
   &__header {
     height: 64px;
+    @include respond-below(sm) {
+      height: 120px;
+    }
     background-color: $dark-blue;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    @include respond-below(sm) {
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
   &__logo {
@@ -21,7 +29,11 @@ $disable-clr: #adb5cc;
     left: 32px;
     top: 0;
     @include respond-below(sm) {
-      left: 2px;
+      position: relative;
+      margin: 0 auto;
+      text-align: center;
+      left: 0;
+      top: 18px;
     }
   }
 
@@ -29,12 +41,19 @@ $disable-clr: #adb5cc;
     list-style: none;
     margin: 0 auto;
     padding-inline-start: 0;
-
+    @include respond-below(sm) {
+      align-self: flex-end;
+    }
     & li {
       &:nth-child(2) {
         margin-left: 116px;
         @include respond-below(sm) {
           margin-left: 36px;
+        }
+      }
+      &:nth-child(1) {
+        @include respond-below(sm) {
+          margin-right: 120px;
         }
       }
 
@@ -44,6 +63,9 @@ $disable-clr: #adb5cc;
         font-size: 1rem;
         line-height: 34px;
         padding: 0 8px;
+        @include respond-below(sm) {
+          width: 96px;
+        }
       }
     }
     // & li.tab--inactive {
@@ -55,6 +77,7 @@ $disable-clr: #adb5cc;
 
     & li.tab--active {
       border-bottom: 4px solid #fff;
+
       & > a {
         color: #fff;
       }
@@ -81,9 +104,19 @@ proposal page
     margin-top: 22px;
     display: flex;
     flex-direction: row-reverse;
+    @include respond-below(sm) {
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 16px;
+    }
     & button {
       // align-self: flex-end;
+
       padding: 8px 16px;
+      @include respond-below(sm) {
+        width: 340px;
+        padding: 8px 16px;
+      }
       border: 1px solid #b7bdd0;
       box-sizing: border-box;
       border-radius: 4px;
@@ -105,13 +138,13 @@ proposal page
   &__row {
     height: 150px;
     background: #fff;
-    box-shadow: 0px 0.5px 2px #e0e0e0;
+    box-shadow: 1px 1px 8px #e9e9e9;
     // width: 100%;
     margin: 0 auto 16px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    border-radius: 4px;
     &__left {
       margin: 34px 0 34px 60px;
       @include respond-below(sm) {
@@ -121,7 +154,11 @@ proposal page
       justify-content: space-between;
       align-items: center;
       .CircularProgressbar {
+        min-width: 64px;
         width: 70px;
+        @include respond-below(sm) {
+          width: 142px;
+        }
       }
       & .info {
         margin-left: 78px;
@@ -133,8 +170,10 @@ proposal page
           font-weight: 500;
           font-size: 16px;
           line-height: 24px;
+          word-break: break-all;
           @include respond-below(sm) {
             line-height: 20px;
+            text-align: left;
           }
           color: #203060;
         }
@@ -146,9 +185,7 @@ proposal page
             line-height: 20px;
           }
           text-align: left;
-          @include respond-below(sm) {
-            text-align: center;
-          }
+
           color: #737989;
         }
       }
@@ -209,7 +246,18 @@ proposal page
   border: 0.5px solid #d0d2da;
   max-width: 1800px;
 }
-
+.divide-line.bottom,
+.divide-line.desktop {
+  @include respond-below(sm) {
+    display: none;
+  }
+}
+.divide-line.mobile {
+  display: none;
+  @include respond-below(sm) {
+    display: block;
+  }
+}
 .pagination {
   justify-content: center !important;
 }
@@ -217,6 +265,9 @@ proposal page
 .goback {
   margin: 24px 0;
   display: flex;
+  //  @include respond-below(sm) {
+  //   display: none;
+  // }
   & span {
     margin-left: 14px;
     font-size: 16px;
@@ -234,14 +285,16 @@ proposal create form
 */
 .creat_propoal {
   background: #fff;
+  box-shadow: 1px 1px 8px #e9e9e9;
+  border-radius: 4px;
   margin: 100px auto;
   @include respond-below(sm) {
-    margin: 36px auto;
+    margin: 16px auto 36px auto;
   }
-  box-shadow: 0px 0.5px 2px #e0e0e0;
+
   width: 50%;
   @include respond-below(sm) {
-    width: 95%;
+    width: 100%;
   }
   padding-top: 45px;
   padding-bottom: 35px;
@@ -329,44 +382,63 @@ node list..
   }
   @include respond-below(sm) {
     padding: 0;
+    margin: 18px auto 0 auto;
   }
   &__header {
     display: flex;
     justify-content: flex-start;
-    @include respond-below(sm) {
-      flex-direction: column;
+    @include respond-below(lg) {
+      margin-left: 0px;
     }
     font-size: 16px;
     line-height: 24px;
     margin-bottom: 24px;
     @include respond-below(sm) {
+      flex-direction: column;
       margin-bottom: 18px;
+      display: none;
     }
     text-align: left;
-    & .node_info {
-      width: 50%;
+  }
+
+  & .node_info {
+    &--mobile {
+      display: none;
       @include respond-below(sm) {
-        width: 90%;
-        margin-left: 36px;
-        // text-align: center;
-        margin-bottom: 8px;
+        display: block;
       }
     }
-    & .node_text {
-      margin-right: 8px;
-    }
 
-    & .node_number {
-      background: #dcdee3;
-      border-radius: 19px;
-      padding: 2px 14px;
+    width: 50%;
+    @include respond-below(sm) {
+      width: 100%;
+      // margin-left: 36px;
+      // text-align: center;
+      // padding-bottom: 12px;
     }
+  }
+  & .node_text {
+    margin-right: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #203060;
+  }
+
+  & .node_number {
+    background: #dcdee3;
+    border-radius: 19px;
+    padding: 2px 14px;
   }
 
   &__cards {
     margin: 12px 0 54px 0;
     display: flex;
     justify-content: space-between;
+    @include respond-below(sm) {
+      flex-direction: column;
+    }
     @include respond-below(lg) {
       justify-content: center;
     }
@@ -375,30 +447,35 @@ node list..
 
     &__column {
       width: 48%;
+      // @include respond-below(lg) {
+      //   width: 50%;
+      // }
       @include respond-below(lg) {
-        width: 50%;
+        width: 100%;
       }
       display: flex;
       flex-direction: column;
     }
 
     & .node_card {
-      padding: 24px 40px;
-      @include respond-below(lg) {
-        padding: 24px 8px;
-      }
+      padding: 24px 18px;
+
       margin: 10px 0;
       // width: 48%;
       @include respond-below(lg) {
+        padding: 24px 8px;
         width: 80%;
       }
-      background-color: #fff;
-      box-shadow: 0px 0.5px 2px #e0e0e0;
+
+      background: #ffffff;
+      box-shadow: 1px 1px 8px #e9e9e9;
       display: flex;
       justify-content: space-between;
       align-items: center;
       @include respond-below(sm) {
-        flex-direction: column;
+        width: 100%;
+        flex-direction: row;
+        padding: 18px 12px;
       }
       &__left {
         @include respond-below(lg) {
@@ -407,13 +484,13 @@ node list..
         & p {
           text-align: left;
           margin-bottom: 0px;
-          word-break: break-word;
+          word-break: break-all;
         }
         & .p1 {
           font-weight: 600;
           font-size: 14px;
           line-height: 22px;
-          word-break: break-word;
+          word-break: break-all;
         }
       }
 
@@ -422,25 +499,120 @@ node list..
           margin-left: 8px;
           margin-right: 4px;
         }
+
         @include respond-below(sm) {
-          margin-top: 18px;
+          // margin-top: 18px;
+          align-self: flex-start;
         }
 
         & .vote-out {
-          padding: 5px 14px;
+          padding: 6px 14px;
           color: #fff;
           background: $dark-blue;
           border-radius: 4px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          min-width: 108px;
+          min-width: 98px;
+          line-height: 22px;
+          @include respond-below(sm) {
+            img {
+              display: none;
+            }
+          }
         }
       }
     }
   }
 }
 .props_detail {
+  &__table {
+    text-align: left;
+    display: table;
+    @include respond-below(sm) {
+      display: block;
+    }
+
+    .table-body {
+      @media screen and (min-width: 992px) {
+        background-color: #fff;
+        padding: 0 28px;
+      }
+    }
+
+    .table-header {
+      color: $dark-blue;
+      list-style: none;
+      font-size: 16px;
+      line-height: 24px;
+
+      @include respond-below(md) {
+        display: none !important;
+      }
+    }
+    .row {
+      display: table-row;
+      @include respond-below(md) {
+        display: flex;
+        text-align: center;
+      }
+    }
+
+    .cell {
+      display: table-cell;
+      word-break: break-all;
+      min-width: 128px;
+      p {
+        color: #565c6c;
+        font-size: 16px;
+        line-height: 24px;
+        margin: 36px auto;
+        @include respond-below(md) {
+          text-align: center;
+          // margin: 36px auto;
+        }
+        @include respond-below(sm) {
+          font-size: 14px;
+          margin: 18px auto;
+        }
+      }
+      @include respond-below(md) {
+        width: 50%;
+        display: block;
+        padding: 0;
+        text-align: center;
+        margin-top: 18px;
+        &:before {
+          font-weight: 500;
+          font-size: 16px;
+          @include respond-below(sm) {
+            font-size: 14px;
+          }
+          line-height: 17px;
+          color: $dark-blue;
+          padding: 4px 0;
+          margin-bottom: 3px;
+          content: attr(data-title);
+          display: block;
+        }
+      }
+
+      padding: 6px 18px;
+    }
+    .row.table-body {
+      @include respond-below(md) {
+        div {
+          border-bottom: 1px solid #e8e8e8;
+        }
+        div:nth-last-of-type(1) {
+          border-bottom: none;
+        }
+        div:nth-last-of-type(2) {
+          border-bottom: none;
+        }
+      }
+    }
+  }
   &__header {
     margin: 0 auto;
     display: flex;
@@ -480,13 +652,21 @@ node list..
     &__info {
       display: flex;
       flex-direction: row;
+
       justify-content: space-between;
       align-items: center;
+      @include respond-below(sm) {
+        flex-direction: column;
+        // justify-content: center;
+      }
       margin: 12px 0;
       & .vote_yes,
       & .vote_no {
         margin: 0 auto;
         width: 50%;
+        @include respond-below(sm) {
+          width: 100%;
+        }
         padding: 50px;
         & .votes {
           text-align: center;
@@ -496,6 +676,9 @@ node list..
 
       & .vote_yes {
         border-left: 1px solid #e8e8e8;
+        @include respond-below(sm) {
+          border-left: none;
+        }
       }
 
       & .vote__btn--no,

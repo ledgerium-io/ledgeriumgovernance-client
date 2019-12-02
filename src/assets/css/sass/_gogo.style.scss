@@ -84,7 +84,7 @@ Table of Contents
 // }
 
 /* 00.Variables and Imports */
-@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700|Roboto:100,300,400,500,700,900");
 
 $main-menu-item-height: 110px;
 $main-menu-width: 120px;
@@ -167,7 +167,7 @@ html {
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto","Nunito", sans-serif;
   font-size: 0.8rem;
   font-weight: 400;
   color: $primary-color;
@@ -430,7 +430,7 @@ a {
 p {
   font-size: 0.85rem;
   line-height: 1.3rem;
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto","Nunito", sans-serif;
 }
 
 .text-large {
@@ -4076,7 +4076,7 @@ select.form-control:not([size]):not([multiple]) {
 .react-datepicker {
   border: 1px solid $separator-color;
   border-radius: $border-radius;
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto","Nunito", sans-serif;
 }
 
 .react-datepicker__header {
@@ -5801,7 +5801,7 @@ input:-webkit-autofill {
 .RichEditor-root {
   background: $foreground-color;
   border: 1px solid $separator-color;
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto","Nunito", sans-serif;
   font-size: 14px;
   padding: 15px;
 }

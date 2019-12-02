@@ -20,8 +20,9 @@ export default function Layout({ tabIndex, children }) {
       </header>
       <div className="gov__main">{children}</div>
       <footer>
+        <div className="divide-line mobile" />
         <div className="container">
-          <div className="divide-line" />
+          <div className="divide-line divide-line bottom" />
           <p className="footer__copy">
             © Copyright 2019 Blockledger | Terms of Service | Privacy & Security
           </p>
