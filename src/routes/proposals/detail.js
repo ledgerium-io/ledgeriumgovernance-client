@@ -288,38 +288,38 @@ export default class extends Component {
           {this.state.votes[this.state.ballotId] ? (
             <div className="props_detail">
               <div className="props_detail__table">
-                <div class="table-header row">
-                  <div class="cell">Proposer</div>
-                  <div class="cell">Action</div>
-                  <div class="cell">Affected Key</div>
-                  <div class="cell">Ballot Start</div>
-                  <div class="cell">Final Voting Deadline</div>
-                  <div class="cell">Votes Needed</div>
+                <div className="table-header row">
+                  <div className="cell">Proposer</div>
+                  <div className="cell">Action</div>
+                  <div className="cell">Affected Key</div>
+                  <div className="cell">Ballot Start</div>
+                  <div className="cell">Final Voting Deadline</div>
+                  <div className="cell">Votes Needed</div>
                 </div>
-                <div class="row table-body">
-                  <div class="cell" data-title="Proposer">
-                    <p> {ballot.votees[0].validator}</p>
+                <div className="row table-body">
+                  <div className="cell" data-title="Proposer">
+                    <p className="address"> {ballot.votees[0].validator}</p>
                   </div>
-                  <div class="cell" data-title="Action">
+                  <div className="cell" data-title="Action">
                     <p> {ballot.authorize ? "ADD" : "REMOVE"}</p>
                   </div>
-                  <div class="cell" data-title="Affected Key">
-                    <p>{ballot.votees[0].address}</p>
+                  <div className="cell" data-title="Affected Key">
+                    <p className="address">{ballot.votees[0].address}</p>
                   </div>
-                  <div class="cell" data-title="Ballot Start">
+                  <div className="cell" data-title="Ballot Start">
                     <p> #{ballot.startBlock.toLocaleString()}</p>
                   </div>
-                  <div class="cell" data-title="Final Voting Deadline">
+                  <div className="cell" data-title="Final Voting Deadline">
                     <p>#{ballot.endBlock.toLocaleString()}</p>
                   </div>
-                  <div class="cell" data-title="Votes Needed">
+                  <div className="cell" data-title="Votes Needed">
                     <p>{parseInt(this.state.blockProducers.length / 2 + 1)}</p>
                   </div>
                 </div>
               </div>
 
               <div className="props_detail__vote">
-                <div className="divide-line desktop" />
+                {/* <div className="divide-line desktop" /> */}
                 <div className="props_detail__vote__info">
                   <div className="vote_no">
                     <div className="text-center">0%</div>
@@ -351,7 +351,7 @@ export default class extends Component {
               <h2 className="props_detail__desc-title">Proposal Description</h2>
               <div className="divide-line" />
 
-              <p class="props_detail__parag">
+              <p className="props_detail__parag">
                 A block producer with the public key of{" "}
                 {ballot.votees[0].validator} has initiated a vote to bring in{" "}
                 {ballot.votees[0].address} into the consensus. There are

@@ -276,9 +276,9 @@ proposal page
 .goback {
   margin: 24px 0;
   display: flex;
-  //  @include respond-below(sm) {
-  //   display: none;
-  // }
+  @include respond-below(sm) {
+    display: none;
+  }
   & span {
     margin-left: 14px;
     font-size: 16px;
@@ -533,8 +533,22 @@ node list..
           &:hover {
             background-color: rgba(32, 48, 96, 0.4);
           }
+
+          svg path {
+            fill: #fff;
+            // background-color: rgba(32, 48, 96, 0.4) !important;
+          }
+          &:disabled {
+            color: rgba(32, 48, 96, 0.4) !important;
+            background-color: #fff !important;
+            border: 1px dotted #9ca7b0;
+            svg path {
+              fill: rgba(32, 48, 96, 0.4) !important;
+              // background-color: rgba(32, 48, 96, 0.4) !important;
+            }
+          }
           @include respond-below(sm) {
-            img {
+            svg {
               display: none;
             }
           }
@@ -563,7 +577,10 @@ node list..
       list-style: none;
       font-size: 16px;
       line-height: 24px;
-
+      padding-top: 28px;
+      .cell {
+        padding-top: 28px;
+      }
       @include respond-below(md) {
         display: none !important;
       }
@@ -579,7 +596,7 @@ node list..
     .cell {
       display: table-cell;
       word-break: break-all;
-      min-width: 128px;
+      min-width: 138px;
       p {
         color: #565c6c;
         font-size: 16px;
@@ -648,7 +665,12 @@ node list..
 
   &__vote {
     background: #fff;
-    box-shadow: 0px 0.5px 2px #e0e0e0;
+    // box-shadow: 0px 0.5px 2px #e0e0e0;
+
+    position: relative;
+    top: -10px;
+    left: 0;
+
     @include respond-below(sm) {
       background: #f8f8f8;
       box-shadow: none;
@@ -709,9 +731,20 @@ node list..
       }
 
       & .vote_yes {
-        border-left: 1px solid #e8e8e8;
+        position: relative;
+        // border-left: 1px solid #e8e8e8;
+        &::before {
+          content: "";
+          height: 210px;
+          border-left: 1px solid #e8e8e8;
+          position: absolute;
+          left: 0;
+          top: 12px;
+        }
         @include respond-below(sm) {
-          border-left: none;
+          &::before {
+            display: none;
+          }
         }
       }
 
@@ -724,12 +757,26 @@ node list..
         line-height: 22px;
         text-align: center;
         cursor: pointer;
+        border: none;
+        @include respond-below(sm) {
+          width: 240px;
+        }
       }
       & .vote__btn--no {
         background: #eb5757;
+        box-shadow: 0 5px 10px 0 rgba(242, 27, 87, 0.3);
+        &:disabled {
+          background: #eb5757;
+          box-shadow: 0 5px 10px 0 rgba(242, 27, 87, 0.3);
+        }
       }
       & .vote__btn--yes {
         background: #50e6c5;
+        box-shadow: 0 5px 10px 0 rgba(96, 219, 151, 0.3);
+        &:disabled {
+          background: #50e6c5;
+          box-shadow: 0 5px 10px 0 rgba(96, 219, 151, 0.3);
+        }
       }
     }
     .progress {
@@ -740,7 +787,8 @@ node list..
   }
 
   &__desc-title {
-    margin-top: 45px;
+    margin-top: 34px;
+
     font-size: 18px;
     line-height: 24px;
     color: $dark-blue;
@@ -754,30 +802,35 @@ node list..
     font-size: 16px;
     line-height: 26px;
     color: #565c6c;
-    margin: 35px 0 100px 0;
+    margin: 35px 0 10px 0;
     text-align: left;
     @include respond-below(sm) {
       margin: 30px 16px;
     }
   }
 }
-
-button {
-  // &:disabled {
-  //   color: #9ca7b0 !important;
-  //   background-color: #fff !important;
-  //   border: 1px solid #9ca7b0;
-  //   img {
-  //     fill: #9ca7b0 !important;
-  //   }
-  // }
-  &:disabled {
-    color: rgba(32, 48, 96, 0.4) !important;
-    background-color: #fff !important;
-    border: 1px dotted #9ca7b0;
-    img {
-      fill: rgba(32, 48, 96, 0.4) !important;
-      background-color: rgba(32, 48, 96, 0.4) !important;
-    }
+.address {
+  @include respond-below(sm) {
+    margin-left: 28px !important;
   }
 }
+
+// button {
+//   // &:disabled {
+//   //   color: #9ca7b0 !important;
+//   //   background-color: #fff !important;
+//   //   border: 1px solid #9ca7b0;
+//   //   img {
+//   //     fill: #9ca7b0 !important;
+//   //   }
+//   // }
+//   &:disabled {
+//     color: rgba(32, 48, 96, 0.4) !important;
+//     background-color: #fff !important;
+//     border: 1px dotted #9ca7b0;
+//     img {
+//       fill: rgba(32, 48, 96, 0.4) !important;
+//       background-color: rgba(32, 48, 96, 0.4) !important;
+//     }
+//   }
+// }
