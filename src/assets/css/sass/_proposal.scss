@@ -8,6 +8,12 @@ $gray-clr: #737989;
 $disable-clr: #adb5cc;
 .gov {
   background-color: $bg-clr;
+
+  &__main {
+    @include respond-below(sm) {
+      margin-top: 148px;
+    }
+  }
   &__header {
     height: 64px;
     @include respond-below(sm) {
@@ -21,6 +27,11 @@ $disable-clr: #adb5cc;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
     }
   }
 
@@ -130,7 +141,7 @@ proposal page
       color: #203060;
       cursor: pointer;
       &:hover:enabled {
-        background-color: #b7bdd0;
+        background-color: rgba(32, 48, 96, 0.3);
         color: darken(#203060, 8%);
       }
     }
@@ -513,8 +524,15 @@ node list..
           display: flex;
           justify-content: space-between;
           align-items: center;
-          min-width: 98px;
+          min-width: 108px;
           line-height: 22px;
+          @include respond-below(md) {
+            // margin-top: 18px;
+            padding-left: 24px;
+          }
+          &:hover {
+            background-color: rgba(32, 48, 96, 0.4);
+          }
           @include respond-below(sm) {
             img {
               display: none;
@@ -754,8 +772,12 @@ button {
   //   }
   // }
   &:disabled {
-    color: #fff;
-    background-color: #9ca7b0 !important;
-    border: #9ca7b0;
+    color: rgba(32, 48, 96, 0.4) !important;
+    background-color: #fff !important;
+    border: 1px dotted #9ca7b0;
+    img {
+      fill: rgba(32, 48, 96, 0.4) !important;
+      background-color: rgba(32, 48, 96, 0.4) !important;
+    }
   }
 }

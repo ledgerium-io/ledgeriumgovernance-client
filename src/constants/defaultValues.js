@@ -10,7 +10,7 @@ export const localeOptions = [
 export const searchPath = "/app/search"
 export const servicePath = "https://api.coloredstrategies.com"
 
-export const baseURL = `${document.location.origin}/governancesvc`
+// export const baseURL = `${document.location.origin}/governancesvc`
 // url for test 
-// export const baseURL = `http://toorak05.ledgerium.io/governancesvc`
+export const baseURL = `http://toorak05.ledgerium.io/governancesvc`
 // 'https://flinders01.ledgerium.io/governancesvc'
