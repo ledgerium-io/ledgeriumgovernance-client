@@ -16,7 +16,7 @@ import Goback from "../../components/Proposal/goback";
 
 import Layout from "../../components/Layout";
 import voteOutImage from "../../assets/img/vote_out.svg";
-import voteInImage from "../../assets/img/vote_in.svg";
+import voteInfo from "../../assets/img/vote_info.svg";
 import { css } from "@emotion/core";
 import BounceLoader from "react-spinners/BounceLoader";
 const override = css`
@@ -288,14 +288,14 @@ export default class extends Component {
           {this.state.votes[this.state.ballotId] ? (
             <div className="props_detail">
               <div className="props_detail__table">
-                <div className="table-header row">
+                {/* <div className="table-header row">
                   <div className="cell">Proposer</div>
                   <div className="cell">Action</div>
                   <div className="cell">Affected Key</div>
                   <div className="cell">Ballot Start</div>
                   <div className="cell">Final Voting Deadline</div>
                   <div className="cell">Votes Needed</div>
-                </div>
+                </div> */}
                 <div className="row table-body">
                   <div className="cell" data-title="Proposer">
                     <p className="address"> {ballot.votees[0].validator}</p>
@@ -318,11 +318,10 @@ export default class extends Component {
                 </div>
               </div>
 
-              <div className="props_detail__vote">
-                {/* <div className="divide-line desktop" /> */}
+              <div className="props_detail__vote ">
                 <div className="props_detail__vote__info">
                   <div className="vote_no">
-                    <div className="text-center">0%</div>
+                    <div className="text-center vote_text">0%</div>
                     <Progress value="0" />
                     <p className="votes">0 Votes</p>
                     <button className="vote__btn--no">No</button>
@@ -346,6 +345,13 @@ export default class extends Component {
                       Yes
                     </button>
                   </div>
+                </div>
+                <div className="vote_info">
+                  <img src={voteInfo} alt="info" />
+                  <p>
+                    Minimum 51% support from validators are required to pass the
+                    proposal
+                  </p>
                 </div>
               </div>
               <h2 className="props_detail__desc-title">Proposal Description</h2>

@@ -6,6 +6,7 @@ $dark-blue: #203060;
 $bg-clr: #e5e5e5;
 $gray-clr: #737989;
 $disable-clr: #adb5cc;
+
 .gov {
   background-color: $bg-clr;
 
@@ -528,7 +529,7 @@ node list..
           line-height: 22px;
           @include respond-below(md) {
             // margin-top: 18px;
-            padding-left: 24px;
+            padding-left: 28.5px;
           }
           &:hover {
             background-color: rgba(32, 48, 96, 0.4);
@@ -566,31 +567,35 @@ node list..
     }
 
     .table-body {
-      @media screen and (min-width: 992px) {
-        background-color: #fff;
-        padding: 0 28px;
+      // @media screen and (min-width: 992px) {
+      //   background-color: #fff;
+      //   padding: 0 28px;
+      // }
+      margin: 0 8px;
+      @include respond-below(md) {
+        margin: 0 auto;
       }
     }
 
-    .table-header {
-      color: $dark-blue;
-      list-style: none;
-      font-size: 16px;
-      line-height: 24px;
-      padding-top: 28px;
-      .cell {
-        padding-top: 28px;
-      }
-      @include respond-below(md) {
-        display: none !important;
-      }
-    }
+    // .table-header {
+    //   color: $dark-blue;
+    //   list-style: none;
+    //   font-size: 16px;
+    //   line-height: 24px;
+    //   padding-top: 28px;
+    //   .cell {
+    //     padding-top: 28px;
+    //   }
+    //   @include respond-below(md) {
+    //     display: none !important;
+    //   }
+    // }
     .row {
-      display: table-row;
-      @include respond-below(md) {
-        display: flex;
-        text-align: center;
-      }
+      // display: table-row;
+      // @include respond-below(md) {
+      display: flex;
+      text-align: center;
+      // }
     }
 
     .cell {
@@ -611,30 +616,48 @@ node list..
           margin: 18px auto;
         }
       }
+      width: 33.33%;
+      display: block;
+      padding: 0;
+      text-align: center;
+      margin-top: 18px;
+      &:before {
+        font-weight: 500;
+        font-size: 16px;
+
+        line-height: 17px;
+        color: $dark-blue;
+        padding: 4px 0;
+        margin-bottom: 3px;
+        content: attr(data-title);
+        display: block;
+        text-align: left;
+        @include respond-below(sm) {
+          font-size: 14px;
+        }
+        @include respond-below(md) {
+          text-align: center;
+        }
+      }
       @include respond-below(md) {
         width: 50%;
-        display: block;
-        padding: 0;
-        text-align: center;
-        margin-top: 18px;
-        &:before {
-          font-weight: 500;
-          font-size: 16px;
-          @include respond-below(sm) {
-            font-size: 14px;
-          }
-          line-height: 17px;
-          color: $dark-blue;
-          padding: 4px 0;
-          margin-bottom: 3px;
-          content: attr(data-title);
-          display: block;
-        }
       }
 
       padding: 6px 18px;
     }
     .row.table-body {
+      div {
+        border-bottom: 1px solid #e8e8e8;
+      }
+      div:nth-last-of-type(1) {
+        border-bottom: none;
+      }
+      div:nth-last-of-type(2) {
+        border-bottom: none;
+      }
+      div:nth-last-of-type(3) {
+        border-bottom: none;
+      }
       @include respond-below(md) {
         div {
           border-bottom: 1px solid #e8e8e8;
@@ -704,8 +727,12 @@ node list..
         // justify-content: center;
       }
       margin: 12px 0;
+
+      .progress-bar {
+        background-color: $dark-blue;
+      }
       & .vote_text {
-        padding: 6px 0;
+        padding: 16px 0;
       }
       & .vote_yes,
       & .vote_no {
@@ -739,7 +766,7 @@ node list..
           border-left: 1px solid #e8e8e8;
           position: absolute;
           left: 0;
-          top: 12px;
+          top: 22px;
         }
         @include respond-below(sm) {
           &::before {
@@ -758,6 +785,7 @@ node list..
         text-align: center;
         cursor: pointer;
         border: none;
+        width: 105px;
         @include respond-below(sm) {
           width: 240px;
         }
@@ -801,7 +829,7 @@ node list..
   & p {
     font-size: 16px;
     line-height: 26px;
-    color: #565c6c;
+    color: #737989;
     margin: 35px 0 10px 0;
     text-align: left;
     @include respond-below(sm) {
@@ -815,22 +843,45 @@ node list..
   }
 }
 
-// button {
-//   // &:disabled {
-//   //   color: #9ca7b0 !important;
-//   //   background-color: #fff !important;
-//   //   border: 1px solid #9ca7b0;
-//   //   img {
-//   //     fill: #9ca7b0 !important;
-//   //   }
-//   // }
-//   &:disabled {
-//     color: rgba(32, 48, 96, 0.4) !important;
-//     background-color: #fff !important;
-//     border: 1px dotted #9ca7b0;
-//     img {
-//       fill: rgba(32, 48, 96, 0.4) !important;
-//       background-color: rgba(32, 48, 96, 0.4) !important;
-//     }
-//   }
-// }
+.vote_info {
+  text-align: left;
+  > p {
+    // margin: 0 auto;
+    padding: 18px 0;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
+    color: #565c6c;
+    display: inline-block;
+    vertical-align: baseline;
+  }
+  > img {
+    margin-right: 12px;
+    margin-left: 18px;
+    align-self: center;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    left: 0;
+    top: -2px;
+  }
+  display: block;
+  @include respond-below(sm) {
+    background: #ffffff;
+    box-shadow: 0px 0.5px 2px #e0e0e0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    > p {
+      margin: 0 auto;
+      padding: 18px 0;
+    }
+    > img {
+      margin-left: 18px;
+      margin-left: 0;
+      margin-top: 24px;
+      align-self: flex-start;
+      top: 0;
+    }
+  }
+}
