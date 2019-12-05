@@ -193,6 +193,7 @@ proposal page
         h2 {
           font-size: 16px;
           line-height: 24px;
+          font-weight: 400;
           @include respond-below(sm) {
             line-height: 20px;
           }
@@ -493,6 +494,9 @@ node list..
         @include respond-below(lg) {
           margin-left: 8px;
         }
+        @include respond-below(sm) {
+          margin-right: 28px;
+        }
         & p {
           text-align: left;
           margin-bottom: 0px;
@@ -514,7 +518,8 @@ node list..
 
         @include respond-below(sm) {
           // margin-top: 18px;
-          align-self: flex-start;
+          // margin-top: 5px;
+          align-self: center;
         }
 
         & .vote-out {
@@ -549,6 +554,8 @@ node list..
             }
           }
           @include respond-below(sm) {
+            min-width: 78px;
+            padding-left: 13.5px;
             svg {
               display: none;
             }
@@ -576,20 +583,6 @@ node list..
         margin: 0 auto;
       }
     }
-
-    // .table-header {
-    //   color: $dark-blue;
-    //   list-style: none;
-    //   font-size: 16px;
-    //   line-height: 24px;
-    //   padding-top: 28px;
-    //   .cell {
-    //     padding-top: 28px;
-    //   }
-    //   @include respond-below(md) {
-    //     display: none !important;
-    //   }
-    // }
     .row {
       // display: table-row;
       // @include respond-below(md) {
@@ -609,7 +602,6 @@ node list..
         margin: 36px auto;
         @include respond-below(md) {
           text-align: center;
-          // margin: 36px auto;
         }
         @include respond-below(sm) {
           font-size: 14px;
@@ -668,6 +660,9 @@ node list..
         div:nth-last-of-type(2) {
           border-bottom: none;
         }
+        div:nth-last-of-type(3) {
+          border-bottom: 1px solid #e8e8e8;
+        }
       }
     }
   }
@@ -722,11 +717,14 @@ node list..
 
       justify-content: space-between;
       align-items: center;
+      @media screen and (min-width: 592px) {
+        border-bottom: 1px solid #e8e8e8;
+      }
       @include respond-below(sm) {
         flex-direction: column;
         // justify-content: center;
       }
-      margin: 12px 0;
+      // margin: 12px 0;
 
       .progress-bar {
         background-color: $dark-blue;
@@ -742,6 +740,7 @@ node list..
         font-weight: normal;
         font-size: 14px;
         line-height: 22px;
+
         @include respond-below(sm) {
           background-color: #fff;
           box-shadow: 1px 1px 8px #e9e9e9;
@@ -797,6 +796,9 @@ node list..
           background: #eb5757;
           box-shadow: 0 5px 10px 0 rgba(242, 27, 87, 0.3);
         }
+        &:hover {
+          box-shadow: none;
+        }
       }
       & .vote__btn--yes {
         background: #50e6c5;
@@ -804,6 +806,9 @@ node list..
         &:disabled {
           background: #50e6c5;
           box-shadow: 0 5px 10px 0 rgba(96, 219, 151, 0.3);
+        }
+        &:hover {
+          box-shadow: none;
         }
       }
     }
@@ -846,7 +851,7 @@ node list..
 .vote_info {
   text-align: left;
   > p {
-    // margin: 0 auto;
+    margin: 0 auto;
     padding: 18px 0;
     font-weight: normal;
     font-size: 16px;
@@ -867,6 +872,8 @@ node list..
   }
   display: block;
   @include respond-below(sm) {
+    margin-top: 10px;
+    padding: 0 18px;
     background: #ffffff;
     box-shadow: 0px 0.5px 2px #e0e0e0;
     display: flex;

@@ -6,8 +6,6 @@ import moment from 'moment'
 import ProposalRow from "../../components/Proposal/row";
 
 import Layout from "../../components/Layout";
-import voteOutImage from "../../assets/img/vote_out.svg";
-import voteInImage from "../../assets/img/vote_in.svg";
 import { css } from '@emotion/core';
 import BounceLoader from 'react-spinners/BounceLoader';
 const override = css`

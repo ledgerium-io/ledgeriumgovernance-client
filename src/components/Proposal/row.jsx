@@ -54,7 +54,7 @@ export default function ProposalRow({
         <div className="vote">
           <img src={thumbsUpImage} alt="up" className="grow" />
           <p>{vote}</p>
-          <img src={thumbsDownImage} alt="cown" className="grow" />
+          <img src={thumbsDownImage} alt="down" className="grow" />
         </div>
       </div>
     </div>
