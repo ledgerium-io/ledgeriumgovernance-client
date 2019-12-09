@@ -1,6 +1,11 @@
 body {
   text-align: center;
 }
+body,
+html {
+  -webkit-font-smoothing: antialiased; /*chrome、safari*/
+  -moz-osx-font-smoothing: grayscale; /*firefox*/
+}
 $dark-blue: #203060;
 
 $bg-clr: #e5e5e5;
