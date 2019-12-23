@@ -340,7 +340,7 @@ export default class extends Component {
                           ballot.votees[0].address.toLowerCase()
                       }
                       onClick={() => {
-                        this.startVote(ballot.votees[0].address, true);
+                        this.startVote(ballot.votees[0].address, ballot.authorize ? true : false);
                       }}
                     >
                       Yes
