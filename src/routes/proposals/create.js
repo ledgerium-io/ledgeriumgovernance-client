@@ -222,6 +222,7 @@ export default class extends Component {
   render() {
     return (
       <Layout tabIndex={0}>
+        <div> <br/> Ledgerium Wallet: {this.state.connected ? this.state.publicKey : "Null"}</div>
         <div className="container">
           <Goback />
           <div className="divide-line" />

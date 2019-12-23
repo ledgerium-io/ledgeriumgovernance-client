@@ -246,6 +246,7 @@ export default class extends Component {
   render() {
     return (
       <Layout tabIndex={0}>
+        <div> <br/> Ledgerium Wallet: {this.state.connected ? this.state.publicKey : "Null"}</div>
         <div className="container container--middle">
           {this.state.error !== "" ? <div><Alert color="danger">{this.state.error}</Alert></div> : ""}
           {this.state.message !== "" ? <div><Alert color="success">{this.state.message}</Alert></div> : ""}

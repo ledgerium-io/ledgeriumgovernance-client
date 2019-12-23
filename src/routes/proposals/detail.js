@@ -268,6 +268,7 @@ export default class extends Component {
     const ballot = this.state.votes[this.state.ballotId];
     return (
       <Layout tabIndex={0}>
+        <div> <br/> Ledgerium Wallet: {this.state.connected ? this.state.publicKey : "Null"}</div>
         <div className="container container--middle">
           <Goback />
           <div className="divide-line" />
