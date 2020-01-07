@@ -64,13 +64,32 @@ export default class extends Component {
         const { consortiumId, nodes, nodeCount, snapshot } = response.data.data
         let validators = []
         let blockProducers = []
+        let blockProducerKeys = []
         for (let i = 0; i < nodes.length; i++) {
           if (nodes[i].role === "MasterNode") {
             blockProducers.push(nodes[i])
+            blockProducerKeys.push(nodes[i].publicKey.toLowerCase())
           } else {
             validators.push(nodes[i])
           }
         }
+
+        for (let i = 0; i < snapshot.validators.length; i++) {
+          const node = snapshot.validators[i].toLowerCase()
+          if(!blockProducerKeys.includes(node)) {
+            blockProducers.push({
+              enode: 'Unknown',
+              name: 'Unknown',
+              publicKey: node,
+              role: 'MasterNode',
+              ip: '0.0.0.0',
+              port: '0000'
+            })
+          }
+        }
+
+
+
         let votes = snapshot.tally
         let ballotCount = 0
         for (let i = 0; i < snapshot.votes.length; i++) {
